@@ -11,5 +11,7 @@ class ProtocolTest(unittest.TestCase):
         Tests Protocol creation.
         """
         model = pk.Protocol()
-        self.assertEqual(model.value, 43)
+        self.assertEqual(model.dosing, 'const')
+        self.assertEqual(model.amount, 10.0)
+        self.assertEqual(model.interval, 25)
 
