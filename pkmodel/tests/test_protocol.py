@@ -13,5 +13,5 @@ class ProtocolTest(unittest.TestCase):
         model = pk.Protocol()
         self.assertEqual(model.dosing, 'const')
         self.assertEqual(model.amount, 10.0)
-        self.assertEqual(model.interval, 25)
+        self.assertEqual(model.interval, None)
 
