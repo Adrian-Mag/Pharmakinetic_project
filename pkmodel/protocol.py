@@ -8,29 +8,27 @@ class Protocol:
     Parameters
     ----------
 
-    dosing: str, optional
-        'const' or 'inst'
-
-        Specifies the dosing protocol. 'const' specifies a
-        steady application of <amount> ng/h. 'inst' specifies
-        instantaneous doses of <amount> ng at intervals of
-        <interval> time steps
-    amount: float, optional
-        If dosing='const': ng/h of drug steadily applied
-        If dosing='inst': ng of drug added every <interval>
-        time steps
     interval: int, optional
         Time steps between dose applications,
         if using instantaneous dosing
 
-        None by default, input only if using
-        instantaneous dosing
+        Default is None, meaning steady application
+        of a dose of <amount> ng/h
+        Specify if using instantaneous dosing,
+        meaning an instantaneous application
+        of <amount> ng every <interval> time steps
+
+    amount: float, optional
+        If interval == None: ng/h of drug steadily applied
+        If interval != None: ng of drug added every <interval>
+        time steps
+
+        Default is 10.0 ng/h OR 10.0 ng every
+        <interval> time steps
 
     """
     def __init__(self,
-                 dosing: str = 'const',
-                 amount: float = 10.0,
-                 interval: int = None):
-        self.dosing = dosing
-        self.amount = amount
+                 interval: int = None,
+                 amount: float = 10.0):
         self.interval = interval
+        self.amount = amount
