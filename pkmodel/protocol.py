@@ -28,8 +28,7 @@ class Protocol:
     def __init__(self,
                  dosing: str = 'const',
                  amount: float = 10.0,
-                 interval: int = 25):
+                 interval: int = None):
         self.dosing = dosing
         self.amount = amount
         self.interval = interval
-
