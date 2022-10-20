@@ -20,6 +20,12 @@ class Model:
     compartment 2 in mL/h
     V_p2 (float): Volume of peripheral compartment 2 in mL
 
+    Important instructions:
+    For one peripheral compartment, assign values to Q_p1 and V_p1.
+    For two peripheral compartments, assign values to Q_p1, V_p1, Q_p2, and
+    V_p2
+    Do not assign Q_p2 and V_p2 without first assigning Q_p1 and V_p1!!
+    For subcutaneous dosing, assign a value to K_a
 
     Attributes
     ----------
