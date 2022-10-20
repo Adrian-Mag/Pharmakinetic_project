@@ -1,40 +1,40 @@
-#
-# Model class
-#
-
-class Model:
-    """A Pharmokinetic (PK) model
-
-    Parameters
+"""     Parameters
     ----------
-
-    value: numeric, optional
-        an example paramter
-
-    """
-    def __init__(self, dict):
-        self.name = dict["name"]
-        self.CL = dict["CL"]
-        self.Vc = dict["Vc"]
+    Required:
+    Vc (float): Volume of the central compartment in mL
+    CL (float): The clearance/elimination rate from the central compartment in
+    mL/h
+	@@ -27,26 +27,33 @@ class Model:
+    Subcutaneous (int): the number of subcutaneous dosing compartments in the
+    model
+ """
+def __init__(self, Vc, CL, K_a=None, Q_p1=None, V_p1=None, Q_p2=None,
+                 V_p2=None):
+        self.Vc = Vc
+        self.CL = CL
+        self.opt_params = [K_a, Q_p1, V_p1, Q_p2, V_p2]
         self.Qp = []
         self.Vp = []
-        self.ka = 0
-        
-        for key in dict:
-            if key[0] == "Q" and key[1] == "p":
-                self.Qp.append(dict[key])
-            if key[0] == "V" and key[1] == "p":
-                self.Vp.append(dict[key])
-        
-        self.subcutaneous = 0
-        
-        if "ka" in dict:
+        if Q_p2 is not None:
+            self.peripherals = 2
+            self.Qp.append(Q_p1, Q_p2)
+            self.Vp.append(V_p1, V_p2)
+        elif Q_p1 is not None:
+            self.peripherals = 1
+            self.Qp.append(Q_p1)
+            self.Vp.append(V_p1)
+        else:
+            self.peripherals = 0
+        if K_a is None:
+            self.subcutaneous = 0
+            self.K_a = K_a
+        else:
             self.subcutaneous = 1
-            self.ka = dict['ka']
-            
-        self.peripherals = len(self.Qp)
-            
 
-""" dictionary = {'CL': 1, 'Vc': 2, 'Qp1': 3, 'Vp1': 4, 'Qp2': 5, 'Vp2': 6, 'Qp3': 7, 'Vp3': 8}
-my_mod = Model(dictionary)
-print(my_mod.Qp, my_mod.Vp) """
+    def construct_param_dict(self):
+        # Construct a dictionary of the model parameters.
+        param_dict = {
+            'V_c': self.Vc,
+            'CL': self.CL
+        }
+        # Add any optional parameters to the dictionary

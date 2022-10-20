@@ -12,6 +12,16 @@ class Protocol:
         an example paramter
 
     """
-    def __init__(self, value=43):
-        self.value = value
+    def __init__(self,
+                 amount: float = 10.0,
+                 interval: int = None
+                 ):
+        self.amount = amount
+        self.interval = interval
+        
+    def dose(self):
+        if self.interval is None:
+            return self.amount
+        else:
+            return 0
 
