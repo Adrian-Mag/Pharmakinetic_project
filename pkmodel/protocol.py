@@ -20,9 +20,11 @@ class Protocol:
         If dosing='inst': ng of drug added every <interval>
         time steps
     interval: int, optional
-        Time steps between dose applications
+        Time steps between dose applications,
+        if using instantaneous dosing
 
-        Ignored if dosing='const'
+        None by default, input only if using
+        instantaneous dosing
 
     """
     def __init__(self,
