@@ -1,0 +1,4 @@
+[run]
+source = Pharmakinetic_project
+omit = 
+    Pharmakinetic_project/tests/*
