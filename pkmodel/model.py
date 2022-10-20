@@ -33,7 +33,7 @@ class Model:
             'CL': self.CL
         }
         # Add any optional parameters to the dictionary
-        i = 2  # i starts at 2 so that it doesn't overwrite V_c and CL
+        i = 0
         optional_param_name_list = ['K_a', 'Q_p1', 'V_p1', 'Q_p2', 'V_p2']
         for param in self.opt_params:
             if param is not None:
