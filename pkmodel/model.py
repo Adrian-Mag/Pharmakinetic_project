@@ -7,29 +7,59 @@ class Model:
     Parameters
     ----------
     Required:
-    V_c: Volume of the central compartment in mL
-    CL: The clearance/elimination rate from the central compartment in mL/h
+    Vc (float): Volume of the central compartment in mL
+    CL (float): The clearance/elimination rate from the central compartment in
+    mL/h
 
     Optional:
-    K_a: Absorption rate for the subcutaneous dosing per hour
-    Q_p1: Transition rate between central compartment and peripheral
+    K_a (float): Absorption rate for the subcutaneous dosing per hour
+    Q_p1 (float): Transition rate between central compartment and peripheral
     compartment 1 in mL/h
-    V_p1: Volume of peripheral compartment 1 in mL
-    Q_p2: Transition rate between central compartment and peripheral
+    V_p1 (float): Volume of peripheral compartment 1 in mL
+    Q_p2 (float): Transition rate between central compartment and peripheral
     compartment 2 in mL/h
-    V_p2: Volume of peripheral compartment 2 in mL
+    V_p2 (float): Volume of peripheral compartment 2 in mL
 
+    Important instructions:
+    For one peripheral compartment, assign values to Q_p1 and V_p1.
+    For two peripheral compartments, assign values to Q_p1, V_p1, Q_p2, and
+    V_p2
+    Do not assign Q_p2 and V_p2 without first assigning Q_p1 and V_p1!!
+    For subcutaneous dosing, assign a value to K_a
+
+    Attributes
+    ----------
+    Peripherals (int): the number of peripheral compartments in the model
+    Subcutaneous (int): the number of subcutaneous dosing compartments in the
+    model
     """
-    def __init__(self, V_c, CL, K_a=None, Q_p1=None, V_p1=None, Q_p2=None,
+    def __init__(self, Vc, CL, K_a=None, Q_p1=None, V_p1=None, Q_p2=None,
                  V_p2=None):
-        self.V_c = V_c
+        self.Vc = Vc
         self.CL = CL
         self.opt_params = [K_a, Q_p1, V_p1, Q_p2, V_p2]
+        self.Qp = []
+        self.Vp = []
+        if Q_p2 is not None:
+            self.peripherals = 2
+            self.Qp.extend([Q_p1, Q_p2])
+            self.Vp.extend([V_p1, V_p2])
+        elif Q_p1 is not None:
+            self.peripherals = 1
+            self.Qp.append(Q_p1)
+            self.Vp.append(V_p1)
+        else:
+            self.peripherals = 0
+        if K_a is None:
+            self.subcutaneous = 0
+            self.K_a = K_a
+        else:
+            self.subcutaneous = 1
 
     def construct_param_dict(self):
         # Construct a dictionary of the model parameters.
         param_dict = {
-            'V_c': self.V_c,
+            'V_c': self.Vc,
             'CL': self.CL
         }
         # Add any optional parameters to the dictionary
