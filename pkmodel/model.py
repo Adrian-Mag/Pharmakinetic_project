@@ -7,24 +7,41 @@ class Model:
     Parameters
     ----------
     Required:
-    V_c: Volume of the central compartment in mL
-    CL: The clearance/elimination rate from the central compartment in mL/h
+    V_c (float): Volume of the central compartment in mL
+    CL (float): The clearance/elimination rate from the central compartment in
+    mL/h
 
     Optional:
-    K_a: Absorption rate for the subcutaneous dosing per hour
-    Q_p1: Transition rate between central compartment and peripheral
+    K_a (float): Absorption rate for the subcutaneous dosing per hour
+    Q_p1 (float): Transition rate between central compartment and peripheral
     compartment 1 in mL/h
-    V_p1: Volume of peripheral compartment 1 in mL
-    Q_p2: Transition rate between central compartment and peripheral
+    V_p1 (float): Volume of peripheral compartment 1 in mL
+    Q_p2 (float): Transition rate between central compartment and peripheral
     compartment 2 in mL/h
-    V_p2: Volume of peripheral compartment 2 in mL
+    V_p2 (float): Volume of peripheral compartment 2 in mL
 
+
+    Attributes
+    ----------
+    Peripherals (int): the number of peripheral compartments in the model
+    Subcutaneous (int): the number of subcutaneous dosing compartments in the
+    model
     """
     def __init__(self, V_c, CL, K_a=None, Q_p1=None, V_p1=None, Q_p2=None,
                  V_p2=None):
         self.V_c = V_c
         self.CL = CL
         self.opt_params = [K_a, Q_p1, V_p1, Q_p2, V_p2]
+        if Q_p2 is not None:
+            self.periperals = 2
+        elif Q_p1 is not None:
+            self.peripherals = 1
+        else:
+            self.peripherals = 0
+        if K_a is None:
+            self.subcutaneous = 0
+        else:
+            self.subcutaneous = 1
 
     def construct_param_dict(self):
         # Construct a dictionary of the model parameters.
