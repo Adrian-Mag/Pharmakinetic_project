@@ -2,6 +2,9 @@
 # Protocol class
 #
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pylab as plt
 
 class Protocol:
     """A Pharmokinetic (PK) protocol
@@ -13,7 +16,8 @@ class Protocol:
         an example paramter
 
     """
-    def __init__(self, end_time, points, intervals, spikes):
+    def __init__(self, name, end_time, points, intervals, spikes):
+        self.name = name
         self.time = np.linspace(0, end_time, points)
         self.values = np.zeros(points)
         
@@ -35,10 +39,11 @@ class Protocol:
         self.values[index] += correct_dose
         
     def value(self, t):
-        return int(self.values[np.where(self.time == t)])
-        
-intervals = [{'start': 0, 'end': 0.1, 'dose': 1}, 
-             {'start': 0.5, 'end': 0.6, 'dose': 1},
-             {'start': 0.9, 'end': 1, 'dose': 2}]
-spikes = [{'time': 0.2, 'dose': 1},
-          {'time': 0.8, 'dose': 2}]
+        # find location of given time point in our time series
+        index = np.searchsorted(self.time, t)
+        return self.values[index]
+    
+    def show_graph(self):
+        plt.figure('Protocol ' +  self.name)
+        plt.plot(self.time, self.values)
+

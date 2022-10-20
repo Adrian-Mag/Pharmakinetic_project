@@ -32,7 +32,7 @@ class Solution:
     
     Output:
     Solution object
-a
+
     """
     def __init__(self, model, protocol):
         """ The solution is  automatically computed
@@ -72,11 +72,12 @@ a
         dosage term in the form:
         D = [dose(t) 0 0 0 ...] 
         """
+        print(t)
         dose = np.zeros(model.peripherals + model.subcutaneous + 1)
         if model.subcutaneous == 0:
-            dose[0] = protocol.dose()
+            dose[0] = protocol.value(t)
         else:
-            dose[1] = protocol.dose()
+            dose[1] = protocol.value(t)
         return dose
     
     def __solve(self, model, protocol):
@@ -87,20 +88,18 @@ a
             dq = np.matmul(matrix, y) + self.__dose_vector(model, protocol, t)
             return dq
         
-        # Create time domain
-        time  = np.linspace(0, 1, 1000)
         # Find number of unknowns to be solved for 
         no_of_unknowns = model.peripherals + model.subcutaneous + 1
         # Build model matrix
         matrix = self.__matrix(model)
-        print(matrix)
         # Build initial conditions
         y0 = np.zeros(no_of_unknowns)
         # Integrate IVP over all time and save solution
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: __rhs(model, protocol, matrix, t, y),
-            t_span=[time[0], time[-1]],
-            y0=y0, t_eval=time
+            t_span=[protocol.time[0], protocol.time[-1]],
+            y0=y0, t_eval=protocol.time, method = 'DOP853',
+            max_step=0.01, atol = 1, rtol = 1
         )
         return sol
         
@@ -110,6 +109,7 @@ a
             Input parameters: solve_ivp object holding the solution
             Output: Graphs of drugs content over time 
         """
+        plt.figure('Model ' + model.name)
         plt.plot(self.solution.t, self.solution.y[0, :], label=model.name + ' qc')
         if model.subcutaneous == 1:
             plt.plot(self.solution.t, self.solution.y[1, :], label=model.name + ' q0')
