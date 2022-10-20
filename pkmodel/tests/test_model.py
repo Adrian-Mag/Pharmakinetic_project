@@ -10,10 +10,15 @@ class ModelTest(unittest.TestCase):
         """
         Tests Model creation.
         """
-        model = pk.Model(1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0)
-        dict_of_params = model.construct_param_dict()
-        assert type(dict_of_params) == dict
-        assert dict_of_params['V_c'] == 1.0
-        assert dict_of_params['K_a'] == 2.5
-        assert dict_of_params['V_p2'] == 5.0
+        model1 = pk.Model(1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0)
+        model2 = pk.Model(2.0, 1.0, Q_p1=3.0, V_p1=4.0)
+        assert model1.subcutaneous == 1
+        assert model1.peripherals == 2
+        assert model2.subcutaneous == 0
+        assert model2.peripherals == 1
+        with self.assertRaises(AssertionError):
+            assert len(model1.Qp) == 3
+            assert len(model2.Vp) == 2
+            assert model1.Vc == 2.0
+            assert model2.CL == 2.0
 
