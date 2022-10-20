@@ -36,8 +36,8 @@ class Model:
         self.Vp = []
         if Q_p2 is not None:
             self.peripherals = 2
-            self.Qp.append[Q_p1, Q_p2]
-            self.Vp.append[V_p1, V_p2]
+            self.Qp.extend([Q_p1, Q_p2])
+            self.Vp.extend([V_p1, V_p2])
         elif Q_p1 is not None:
             self.peripherals = 1
             self.Qp.append(Q_p1)
