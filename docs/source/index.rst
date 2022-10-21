@@ -6,6 +6,15 @@
 Welcome to Pharmacokinetic Modelling Project's documentation!
 =============================================================
 
+**Pharmacokinetic Modelling Project** is a Python library for specifying, solving, and visualising
+the solution of a Pharmacokinetic (PK) model. A PK model quantitatively describes the movement of a drug through
+a patient by modelling the drug delivery, diffusion of the drug through the body, 
+and clearance of the drug from the body.
+
+.. note::
+
+   This project is under development.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
