@@ -37,6 +37,14 @@ setup(
     # Module name (lowercase)
     name='pkmodel',
 
+    # List of dependencies
+    install_requires=[
+        # Dependencies go here!
+        'numpy',
+        'matplotlib',
+        'scipy',
+    ],
+
     # Version
     version=get_version(),
 
@@ -60,13 +68,6 @@ setup(
     # Packages to include
     packages=find_packages(include=('pkmodel', 'pkmodel.*')),
 
-    # List of dependencies
-    install_requires=[
-        # Dependencies go here!
-        'numpy',
-        'matplotlib',
-        'scipy',
-    ],
     extras_require={
         'docs': [
             # Sphinx for doc generation. Version 1.7.3 has a bug:
