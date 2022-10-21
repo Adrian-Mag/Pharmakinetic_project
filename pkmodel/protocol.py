@@ -1,7 +1,7 @@
 #
 # Protocol class
 #
-import numpy as np
+#import numpy as np
 import matplotlib
 import matplotlib.pylab as plt
 matplotlib.use('TkAgg')
