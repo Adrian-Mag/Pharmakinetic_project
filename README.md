@@ -7,7 +7,10 @@
 This project runs a basic pharmacokinetic (PK) model, allowing the user to quantitatively examine the flow of drugs in and out of the body. This model accounts for absorption, distribution, metabolism, and excretion (ADME). Here, the body itself is modelled as a series of compartments, with the number of compartments able to be chosen by the user, with a maximum of two peripheral compartments and the addition of a compartment to account for subcutaneous dosing. This package allows the user to specify, solve, and visualize the solution to a PK model. The user can select whether or not they would like to model a constant rate of drug dosage, instantaneous drug dosage at predetermined intervals, or a combination of the two. The choice of model can be made independently of that of dosage type.
 
 # Instructions for installing the package
-[To be made]
+First, make sure you are working in a virtual environment. This can be done by running the following lines in the terminal:
+
+    ~/$ python3 -m venv venv
+    ~/$ source venv/bin/activate
 
 # Files contained in this package
 setup.py: A python script that, when run, installs the necessary dependencies required to use this package
@@ -25,6 +28,8 @@ pkmodel: A folder containing all of the code needed to construct and solve a PK 
     - protocol.py: A python script that establishes a class Protocol, which has a dosage method chosen by the user.
 
     - solution.py: A python script that establishes a class Solution, which takes in an object of class Model and class Protocol, and derives a solution to the PK model. This script also contains a function compare() which allows for the direct comparison of multiple Solution objects.
+
+    - example.py: A python script that provides a template for creating and solving a PK model, which should be modified according to the user's needs in order to test the desired models and dosage protocols.
 
     - version_info.py: A python script containing the version info for the Pharmakinetic_project package.
 
