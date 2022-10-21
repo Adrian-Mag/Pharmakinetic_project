@@ -8,7 +8,7 @@ class ModelTest(unittest.TestCase):
     """
     def test_create(self):
         """
-        Tests Model creation.
+        Tests Model creation and attributes.
         """
         model1 = {'name': 'model_test',
                   'CL': 1.0,

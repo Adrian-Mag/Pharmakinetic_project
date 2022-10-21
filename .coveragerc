@@ -1,0 +1,5 @@
+[run]
+source = Pharmakinetic_project
+omit = 
+    Pharmakinetic_project/pkmodel/tests/*
+    

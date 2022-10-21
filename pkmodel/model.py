@@ -1,7 +1,6 @@
 #
 # Model class
 #
-
 class Model:
     """A Pharmokinetic (PK) model
     ---------------------------------------
