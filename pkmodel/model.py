@@ -4,8 +4,32 @@
 
 class Model:
     """A Pharmokinetic (PK) model
-    -------
+    ---------------------------------------
     INPUTS: dictionary describing the model
+    ----------------------------------------
+    name: float
+        This will be used for plotting the solutions 
+    CL: float
+        [mL/h], the clearance/elimination rate from the 
+        central compartment
+    Vc: float
+        [mL], the volume of the central compartment
+    ka: float, optional
+        [1/h], the “absorption” rate for the s.c dosing.
+        If a ka is not given in the dictionary, its default 
+        value will be 0
+    Qpi: float, optional
+        [mL/h], the transition rate between central compartment 
+        and peripheral compartment i, where i can be any positive 
+        integer
+        By default there are no peripheral compartiments
+    Vpi: float, optional
+        [mL], the volume of the peripheral compartment i,
+        where i can be any positive integer. Qpi and Vpi
+        must be present at the same time. If only one of them
+        is offered, the code will throw an error
+        By default there are no peripheral compartiments
+
     The dictionary should have the following template:
     {
         'name': name your model <str>, (for visualization purposes)
@@ -21,16 +45,16 @@ class Model:
         ... etc
     }
 
-    !! The peripheral compartiments must be added starting from
+    ** The peripheral compartiments must be added starting from
     1 and increasing in increments of 1 up to the maximum number
-    peripheral compartiments used !!
+    peripheral compartiments used **
 
-    !! At a minimum the model must have a main compartiemnt with
-    CL and Vc given and a name !!
-    ----------
-    OUTPUTS: model object that holds all the properties as attributes
-    ----------
+    ** At a minimum, the model must have a main compartiemnt with
+    CL and Vc given, and a name **
 
+    OUTPUTS:
+    -----------------------------------------------------------------
+    model object that holds all the properties as attributes
     """
     def __init__(self, dict: dict):
 

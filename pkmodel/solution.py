@@ -12,7 +12,9 @@ class Solution:
     """A Pharmokinetic (PK) solution model
     ------------
     INPUTS
-    model object
+    ------------
+    model: object
+
     protocol object
 
     This class creates solution objects that contain the time interval,
