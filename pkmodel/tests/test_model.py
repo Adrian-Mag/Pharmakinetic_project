@@ -8,7 +8,7 @@ class ModelTest(unittest.TestCase):
     """
     def test_create(self):
         """
-        Tests Model creation.
+        Tests Model creation and attributes.
         """
         model1 = pk.Model(1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0)
         model2 = pk.Model(2.0, 1.0, Q_p1=3.0, V_p1=4.0)

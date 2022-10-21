@@ -2,7 +2,7 @@
 # Model class
 #
 class Model:
-    """A Pharmokinetic (PK) model
+    """A Pharmacokinetic (PK) model
 
     Parameters
     ----------
@@ -32,6 +32,11 @@ class Model:
     Peripherals (int): the number of peripheral compartments in the model
     Subcutaneous (int): the number of subcutaneous dosing compartments in the
     model
+    Vc: equivalent to the V_c parameter
+    CL: equivalent to the CL parameter
+    opt_params: a list containing the optional parameters listed above
+    Qp: a list containing all of the Qp values that are not None
+    Vp: a list containing all of the Vp values that are not None
     """
     def __init__(self, Vc, CL, K_a=None, Q_p1=None, V_p1=None, Q_p2=None,
                  V_p2=None):
