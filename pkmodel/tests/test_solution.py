@@ -27,13 +27,10 @@ class SolutionTest(unittest.TestCase):
         # Define protocol elements---------------
         end_time = 1
         points = 101
-        spike_1 = [{'time': 0.5, 'dose': 1}]
 
         # Build protocols-----------------------
         # Protocol 0 (constant 0)
         protocol_zero = pk.Protocol('protocol 0', end_time, points)
-        protocol_single_spike = pk.Protocol('protocol 0', end_time,
-                                            points, None, spike_1)
 
         # Build models--------------------------
         # Subcutaneous model with 1 peripheral
@@ -44,8 +41,6 @@ class SolutionTest(unittest.TestCase):
         # Solve models with chosen protocols-----
         Solution_subcutaneous_0 = pk.Solution(my_model1, protocol_zero)
         Solution_intravenous_0 = pk.Solution(my_model2, protocol_zero)
-        Solution_intravenous_spike = pk.Solution(my_model2,
-                                                 protocol_single_spike)
 
         # Check solutions-----------------------
         # Check if zero protocols give back zero dosages
@@ -53,9 +48,6 @@ class SolutionTest(unittest.TestCase):
                 == np.zeros((3, points))).all())
         assert ((np.array(Solution_intravenous_0.solution.y)
                 == np.zeros((2, points))).all())
-
-        # Visualize
-        Solution_intravenous_spike.visualize()
 
 
 if __name__ == '__main__':
