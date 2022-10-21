@@ -15,11 +15,15 @@ and clearance of the drug from the body.
 
    This project is under development.
 
+.. automodule:: protocol
+   :members:
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+   usage
+   protocol
 
 Indices and tables
 ==================
