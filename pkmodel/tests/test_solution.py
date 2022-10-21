@@ -1,6 +1,6 @@
 import unittest
 import pkmodel as pk
-from protocol import Protocol
+import numpy as np
 
 
 class SolutionTest(unittest.TestCase):
@@ -11,13 +11,52 @@ class SolutionTest(unittest.TestCase):
         """
         Tests Solution creation.
         """
-        model = {
-            'name': 'model1',
-            'CL': 1.0,
-            'V_c': 1.0,
-            'Q_p1': 1.0,
-            'V_p1': 1.0,
-            }
-        my_protocol = Protocol('const', 5)
-        my_solution = Solution(model, my_protocol)
+        # Define models--------------------------
+        model1 = {'name': 'model1',
+                  'CL': 1.0,
+                  'Vc': 2.0,
+                  'ka': 10.0,
+                  'Qp1': 3.0,
+                  'Vp1': 4.0}
+        model2 = {'name': 'model2',
+                  'CL': 1.0,
+                  'Vc': 1.0,
+                  'Qp1': 1.0,
+                  'Vp1': 1.0}
 
+        # Define protocol elements---------------
+        end_time = 1
+        points = 101
+        spike_1 = [{'time': 0.5, 'dose': 1}]
+
+        # Build protocols-----------------------
+        # Protocol 0 (constant 0)
+        protocol_zero = pk.Protocol('protocol 0', end_time, points)
+        protocol_single_spike = pk.Protocol('protocol 0', end_time,
+                                            points, None, spike_1)
+
+        # Build models--------------------------
+        # Subcutaneous model with 1 peripheral
+        my_model1 = pk.Model(model1)
+        # Intravenous model with 1 peripheral
+        my_model2 = pk.Model(model2)
+
+        # Solve models with chosen protocols-----
+        Solution_subcutaneous_0 = pk.Solution(my_model1, protocol_zero)
+        Solution_intravenous_0 = pk.Solution(my_model2, protocol_zero)
+        Solution_intravenous_spike = pk.Solution(my_model2,
+                                                 protocol_single_spike)
+
+        # Check solutions-----------------------
+        # Check if zero protocols give back zero dosages
+        assert ((np.array(Solution_subcutaneous_0.solution.y)
+                == np.zeros((3, points))).all())
+        assert ((np.array(Solution_intravenous_0.solution.y)
+                == np.zeros((2, points))).all())
+
+        # Visualize
+        Solution_intravenous_spike.visualize()
+
+
+if __name__ == '__main__':
+    unittest.main()
