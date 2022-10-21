@@ -1,6 +1,8 @@
 #
 # Protocol class
 #
+import numpy as np
+
 
 class Protocol:
     """A Pharmokinetic (PK) protocol
