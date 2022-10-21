@@ -11,3 +11,4 @@ Modules
     :members:
 
 .. automodule:: example
+    :members:
