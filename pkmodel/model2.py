@@ -20,11 +20,11 @@ class Model:
         'Vp3': Vp1 <float>, [mL] (if three peripheral used)
         ... etc
     }
-    
+
     !! The peripheral compartiments must be added starting from
-    1 and increasing in increments of 1 up to the maximum number 
+    1 and increasing in increments of 1 up to the maximum number
     peripheral compartiments used !!
-    
+
     !! At a minimum the model must have a main compartiemnt with
     CL and Vc given and a name !!
     ----------
@@ -33,17 +33,17 @@ class Model:
 
     """
     def __init__(self, dict: dict):
-        
+
         if ("CL" not in dict):
-            raise ValueError('Please provide CL!') 
+            raise ValueError('Please provide CL!')
         elif ("Vc" not in dict):
-            raise ValueError('Please provide Vc!') 
+            raise ValueError('Please provide Vc!')
         elif ("name" not in dict):
-            raise ValueError('Please provide name!') 
-        
+            raise ValueError('Please provide name!')
+
         if isinstance(dict['name'], str):
             self.name = dict["name"]
-        else: 
+        else:
             raise ValueError('name must be string')
         if isinstance(dict['CL'], float) and \
            isinstance(dict['Vc'], float):
@@ -51,12 +51,12 @@ class Model:
             self.Vc = dict["Vc"]
         else:
             raise ValueError('CL and Vc must be floats')
-           
+
         self.Qp = []
         self.Vp = []
         self.ka = 0
 
-        # Cycle through the input dictionary and separate 
+        # Cycle through the input dictionary and separate
         # the attributes
         for key in dict:
             if key[0] == "Q" and key[1] == "p":
@@ -69,14 +69,13 @@ class Model:
                     self.Vp.append(dict[key])
                 else:
                     raise ValueError('All Vps must be floats')
-                
+
         self.subcutaneous = 0
-        
+
         if "ka" in dict:
             if dict['ka'] == 0:
-                raise ValueError('ka must be positive!') 
+                raise ValueError('ka must be positive!')
             self.subcutaneous = 1
             self.ka = dict['ka']
-        
+
         self.peripherals = len(self.Qp)
-            
