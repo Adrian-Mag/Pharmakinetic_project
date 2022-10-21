@@ -18,6 +18,7 @@ To clone the repository:
     
 And install the dependencies:
 
+    (venv) $ cd Pharmakinetic_project/
     (venv) $ pip install .
 
 # Files contained in this package
