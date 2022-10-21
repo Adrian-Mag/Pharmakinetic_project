@@ -8,7 +8,7 @@ class Model:
     INPUTS: dictionary describing the model
     The dictionary should have the following template:
     {
-        'name': name <str>,
+        'name': name your model <str>, (for visualization purposes)
         'CL': CL <float> [mL/h],
         'Vc': Vc <float>, [mL]
         'ka': ka <float>, [1/h] (if subcutaneous)

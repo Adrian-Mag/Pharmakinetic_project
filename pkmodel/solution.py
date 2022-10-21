@@ -9,7 +9,7 @@ matplotlib.use('TkAgg')
 
 
 class Solution:
-    """A Pharmokinetic (PK) model
+    """A Pharmokinetic (PK) solution model
     ------------
     INPUTS
     model object
@@ -142,7 +142,7 @@ def compare(solutions):
     """
     title = 'Comparison:'
     for solution in solutions:
-        title = title + ' ' + solution.name
+        title = title + ' vs ' + solution.name
 
     plt.figure(title)
     for solution in solutions:
