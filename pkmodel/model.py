@@ -6,20 +6,20 @@ class Model:
     ---------------------------------------
     INPUTS: dictionary describing the model
     ----------------------------------------
-    name: float
-        This will be used for plotting the solutions 
+    name: str
+        This will be used for plotting the solutions
     CL: float
-        [mL/h], the clearance/elimination rate from the 
+        [mL/h], the clearance/elimination rate from the
         central compartment
     Vc: float
         [mL], the volume of the central compartment
     ka: float, optional
         [1/h], the “absorption” rate for the s.c dosing.
-        If a ka is not given in the dictionary, its default 
+        If a ka is not given in the dictionary, its default
         value will be 0
     Qpi: float, optional
-        [mL/h], the transition rate between central compartment 
-        and peripheral compartment i, where i can be any positive 
+        [mL/h], the transition rate between central compartment
+        and peripheral compartment i, where i can be any positive
         integer
         By default there are no peripheral compartiments
     Vpi: float, optional
@@ -32,28 +32,33 @@ class Model:
     The dictionary should have the following template:
     {
         'name': name your model <str>, (for visualization purposes)
+
         'CL': CL <float> [mL/h],
+
         'Vc': Vc <float>, [mL]
+
         'ka': ka <float>, [1/h] (if subcutaneous)
+
         'Qp1': Qp1 <float>, [mL/h] (if one peripheral used)
+
         'Vp1': Vp1 <float>, [mL] (if one peripheral used)
+
         'Qp2': Qp1 <float>, [mL/h] (if two peripheral used)
+
         'Vp2': Vp1 <float>, [mL] (if two peripheral used)
+
         'Qp3': Qp1 <float>, [mL/h] (if three peripheral used)
+
         'Vp3': Vp1 <float>, [mL] (if three peripheral used)
         ... etc
     }
 
-    ** The peripheral compartiments must be added starting from
+    **The peripheral compartiments must be added starting from
     1 and increasing in increments of 1 up to the maximum number
-    peripheral compartiments used **
+    peripheral compartiments used**
 
-    ** At a minimum, the model must have a main compartiemnt with
-    CL and Vc given, and a name **
-
-    OUTPUTS:
-    -----------------------------------------------------------------
-    model object that holds all the properties as attributes
+    **At a minimum, the model must have a main compartiemnt with
+    CL and Vc given, and a name**
     """
     def __init__(self, dict: dict):
 

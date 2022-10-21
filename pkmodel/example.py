@@ -26,31 +26,31 @@ interval_2 = [{'start': 0.0, 'end': 1.0, 'dose': 1.0},
 my_model_subcutaneous = pk.Model(model_subcutaneous)
 my_model_intravenous = pk.Model(model_intravenous)
 # Build protocols--------------------------------------
-spike_1_interval_1 = pk.Protocol('Spike1',
-                                 end_time_1h,
-                                 points,
-                                 interval_1,
-                                 spike_1)
-spike_2_interval_2 = pk.Protocol('Spike1',
-                                 end_time_5h,
-                                 points,
-                                 interval_2,
-                                 spike_2)
-no_spike_interval_1 = pk.Protocol('Constant',
-                                  end_time_1h,
-                                  points,
-                                  interval_1,
-                                  None)
-just_spike = pk.Protocol('Delta',
-                         end_time_1h,
-                         points,
-                         None,
-                         spike_1)
+spike_1_interval_1 = pk.Protocol(name='Spike1',
+                                 end_time=end_time_1h,
+                                 points=points,
+                                 intervals=interval_1,
+                                 spikes=spike_1)
+spike_2_interval_2 = pk.Protocol(name='Spike1',
+                                 end_time=end_time_5h,
+                                 points=points,
+                                 intervals=interval_2,
+                                 spikes=spike_2)
+no_spike_interval_1 = pk.Protocol(name='Constant',
+                                  end_time=end_time_1h,
+                                  points=points,
+                                  intervals=interval_1,
+                                  spikes=None)
+just_spike = pk.Protocol(name='Delta',
+                         end_time=end_time_1h,
+                         points=points,
+                         intervals=None,
+                         spikes=spike_1)
 # Solve------------------------------------------------
-Solution_subcutaneous_delta = pk.Solution(my_model_subcutaneous,
-                                          just_spike)
-Solution_intravenous_2_delta = pk.Solution(my_model_intravenous,
-                                           spike_1_interval_1)
+Solution_subcutaneous_delta = pk.Solution(model=my_model_subcutaneous,
+                                          protocol=just_spike)
+Solution_intravenous_2_delta = pk.Solution(model=my_model_intravenous,
+                                           protocol=spike_1_interval_1)
 # Visualize and compare--------------------------------
 just_spike.show_graph()
 Solution_subcutaneous_delta.visualize()

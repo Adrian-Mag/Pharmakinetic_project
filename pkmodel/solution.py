@@ -14,8 +14,9 @@ class Solution:
     INPUTS
     ------------
     model: object
-
-    protocol object
+        see Model class
+    protocol: object
+        see Protocol class
 
     This class creates solution objects that contain the time interval,
     and the drug quantities in the central compartiment, the peripheral
@@ -31,10 +32,14 @@ class Solution:
     is a vector of the form:
     D = [dose(t) 0 0 0 ...]
 
-    Output:
-    Solution object
-
+    OUTPUT:
+    -------------------
+    Solution: object
+        Holds the time, and solution vectors
+        Time can be accessed with solution.t
+        Solutions can be accessed with solution.y
     """
+
     def __init__(self, model, protocol):
         """ The solution is  automatically computed
         upon creation of solution object"""
@@ -47,14 +52,23 @@ class Solution:
         self.peripherals = model.peripherals
 
     def __matrix(self, model):
-        """ Matrix generator
-        INPUTS: model object
-        OUTPUTS: ODE system matrix
+        """Matrix generator
 
         This function generates a matrix that describes the linear
         system of equations. It uses the attributes of the model to
         create matrices for models with or without subcutaneous
-        compartiments and peripherals."""
+        compartiments and peripherals.
+
+        INPUTS:
+        ---------------------------
+        model: object
+            instance of Model class
+
+        OUTPUTS:
+        ---------------------------
+        matrix: np.ndarray
+            ODE matrix
+        """
 
         no_of_unknowns = model.peripherals + model.subcutaneous + 1
         matrix = np.zeros((no_of_unknowns, no_of_unknowns))
@@ -74,12 +88,27 @@ class Solution:
         return matrix
 
     def __dose_vector(self, model, protocol, t):
-        """ Dosage Vectorization
-        This function creates a numpy array that holds the
-        dosage term in the form:
+        """Dosage Vectorization
+
+        This function creates a np.ndarray that holds the
+        dosage function in the form:
+
         D = [dose(t) 0 0 0 ...]
+
+        INPUTS
+        -----------
+        model: object
+            instance of Model class
+        protocol: object
+            instance of Protocol class
+        t: float
+            Time where we want the dose to be evaluated
+
+        OUTPUTS:
+        -----------
+        dose: float
+            Dose rate at time t
         """
-        print(t)
         dose = np.zeros(model.peripherals + model.subcutaneous + 1)
         if model.subcutaneous == 0:
             dose[0] = protocol.value(t)
@@ -88,8 +117,26 @@ class Solution:
         return dose
 
     def __solve(self, model, protocol):
-        """ This method integrates the IVP ODE system and returns the
-        solution."""
+        """IVP ODE solver
+
+        This method integrates the IVP ODE system and returns the
+        solution. It uses a DOP853 method of order 8. The maximum
+        time step is set to be smaller than the minimum time step
+        of the protocol's time
+
+        INPUTS:
+        ---------
+        model: object
+            instance of Model class
+        protocol: object
+            instance of Protocol class
+
+        OUTPUTS:
+        ---------
+        solution: scipy object
+            Scipy object containing the time and solution.
+            Access them using solution.t and solution.y
+        """
 
         def __rhs(model, protocol, matrix, t, y):
             dq = np.matmul(matrix, y) + self.__dose_vector(model, protocol, t)
@@ -97,6 +144,8 @@ class Solution:
 
         # Find number of unknowns to be solved for
         no_of_unknowns = model.peripherals + model.subcutaneous + 1
+        # Find time step of the protocol
+        dt = protocol.time[1] - protocol.time[0]
         # Build model matrix
         matrix = self.__matrix(model)
         # Build initial conditions
@@ -106,15 +155,18 @@ class Solution:
             fun=lambda t, y: __rhs(model, protocol, matrix, t, y),
             t_span=[protocol.time[0], protocol.time[-1]],
             y0=y0, t_eval=protocol.time, method='DOP853',
-            max_step=0.01, atol=1, rtol=1
+            max_step=dt, atol=1, rtol=1
         )
         return sol
 
     def visualize(self):
         """ Plotter of drug presence in body over time
 
-            Input parameters: solve_ivp object holding the solution
-            Output: Graphs of drugs content over time
+            OUTPUTS:
+            ---------
+            plot: matplotlib graph
+                plot of drug quantities in each container
+                over time
         """
         plt.figure('Model ' + self.name)
         plt.plot(self.solution.t, self.solution.y[0, :],
@@ -139,8 +191,16 @@ class Solution:
 def compare(solutions):
     """ Compares multiple solutions in one graph
 
-    Input parameters: list of solution objects
-    Output: One graph of drug evolution for all solutions
+    INPUTS:
+    -------------
+    solutions: list of objects
+        A list of instances of Solution class
+
+    OUTPUTS:
+    ------------
+    plot: matplotlib plot
+        Plot showing comparisons between solutions
+        for different models/protocols
     """
     title = 'Comparison:'
     for solution in solutions:
