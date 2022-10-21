@@ -18,7 +18,7 @@ To clone the repository:
     
 And install the dependencies:
 
-    (venv) $ python setup.py install
+    (venv) $ pip install .
 
 # Files contained in this package
 setup.py: A python script that, when run, installs the necessary dependencies required to use this package
