@@ -31,3 +31,6 @@ ignore=
     # This is now advised in pep8
     W503,
 
+    #__init__ too complicated
+    C901,
+
