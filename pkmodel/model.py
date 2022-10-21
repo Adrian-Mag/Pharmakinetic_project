@@ -19,15 +19,15 @@ class Model:
         value will be 0
     Qpi: float, optional
         [mL/h], the transition rate between central compartment
-        and peripheral compartment i, where i can be any positive
+        and peripheral compartments i, where i can be any positive
         integer
-        By default there are no peripheral compartiments
+        By default there are no peripheral compartmentss
     Vpi: float, optional
-        [mL], the volume of the peripheral compartment i,
+        [mL], the volume of the peripheral compartments i,
         where i can be any positive integer. Qpi and Vpi
         must be present at the same time. If only one of them
         is offered, the code will throw an error
-        By default there are no peripheral compartiments
+        By default there are no peripheral compartmentss
 
     The dictionary should have the following template:
     {
@@ -53,9 +53,9 @@ class Model:
         ... etc
     }
 
-    **The peripheral compartiments must be added starting from
+    **The peripheral compartmentss must be added starting from
     1 and increasing in increments of 1 up to the maximum number
-    peripheral compartiments used**
+    peripheral compartmentss used**
 
     **At a minimum, the model must have a main compartiemnt with
     CL and Vc given, and a name**

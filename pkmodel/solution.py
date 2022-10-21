@@ -18,10 +18,10 @@ class Solution:
     protocol: object
         see Protocol class
 
-    This class creates solution objects that contain the time interval,
-    and the drug quantities in the central compartiment, the peripheral
-    compartiments and the subcutaneous compartiment (if present). The
-    solution can be visualized by calling the "visualization" method.
+    This class creates one or more solution objects that contain the time
+    interval, and the drug quantities in the central compartiment, the
+    peripheral compartiments and the subcutaneous compartiment (if present).
+    The solution can be visualized by calling the "visualization" method.
 
     The general system of equations governing the Pk model can be written
     as:
