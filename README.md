@@ -11,15 +11,25 @@ This project runs a basic pharmacokinetic (PK) model, allowing the user to quant
 
 # Files contained in this package
 setup.py: A python script that, when run, installs the necessary dependencies required to use this package
+
 LICENSE: A text file describing the license associated with this package.
+
 README.md: The file you're reading right now! Contains information about what the package can do, how to install and run the code, the contents of the package, and who the authors are.
+
 pkmodel: A folder containing all of the code needed to construct and solve a PK model.
+
     - __init__.py: A python script that initializes the model.py, protocol.py, and solution.py scripts
+
     - model.py: A python script that establishes a class Model, which has a number of attributes chosen by the user, representing the specifications of the model the user wishes to examine
+
     - protocol.py: A python script that establishes a class Protocol, which has a dosage method chosen by the user.
+
     - solution.py: A python script that establishes a class Solution, which takes in an object of class Model and class Protocol, and derives a solution to the PK model. This script also contains a function compare() which allows for the direct comparison of multiple Solution objects.
+
     - version_info.py: A python script containing the version info for the Pharmakinetic_project package.
+
     - tests: A folder containing the unit tests used to make sure all of the code runs properly.
+
 docs: A folder containing all of the code used to create the documentation associated with this package. The user should have no need to access this folder.
 
 # Authors
