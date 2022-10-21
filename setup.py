@@ -57,9 +57,6 @@ setup(
 
     url='https://github.com/SABS-R3/2020-software-engineering-projects-pk',
 
-    # Packages to include
-    packages=find_packages(include=('pkmodel', 'pkmodel.*')),
-
     # List of dependencies
     install_requires=[
         # Dependencies go here!
@@ -67,6 +64,10 @@ setup(
         'matplotlib',
         'scipy',
     ],
+
+    # Packages to include
+    packages=find_packages(include=('pkmodel', 'pkmodel.*')),
+
     extras_require={
         'docs': [
             # Sphinx for doc generation. Version 1.7.3 has a bug:
