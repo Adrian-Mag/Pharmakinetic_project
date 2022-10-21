@@ -9,3 +9,5 @@ Modules
 
 .. automodule:: solution
     :members:
+
+.. automodule:: example
