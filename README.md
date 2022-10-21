@@ -9,8 +9,16 @@ This project runs a basic pharmacokinetic (PK) model, allowing the user to quant
 # Instructions for installing the package
 First, make sure you are working in a virtual environment. This can be done by running the following lines in the terminal:
 
-    ~/$ python3 -m venv venv
-    ~/$ source venv/bin/activate
+    $ python3 -m venv venv
+    $ source venv/bin/activate
+    
+To clone the repository:
+
+    (venv) $ git clone git@github.com:Adrian-Mag/Pharmakinetic_project.git
+    
+And install the dependencies:
+
+    (venv) $ python setup.py install
 
 # Files contained in this package
 setup.py: A python script that, when run, installs the necessary dependencies required to use this package
